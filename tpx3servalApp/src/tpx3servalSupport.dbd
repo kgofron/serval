@@ -1,0 +1,11 @@
+# Database definition file for tpx3serval
+# This file defines the database structure and driver registration
+
+# Include asyn support
+include "asyn.dbd"
+
+# Driver registration
+registrar(register_func_tpx3servalConfigure)
+
+# Function registration
+function(tpx3servalConfigure)
