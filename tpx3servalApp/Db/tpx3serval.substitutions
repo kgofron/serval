@@ -1,0 +1,4 @@
+file "tpx3serval.db" { 
+    pattern { P, PORT, ADDR, TIMEOUT } 
+        { tpx3serval:, TPX3_PORT, 0, 1.0 } 
+}

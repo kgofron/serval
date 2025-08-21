@@ -1,0 +1,191 @@
+record(bo, "$(P)$(R)START") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))START")
+    field(ZNAM, "Stop")
+    field(ONAM, "Start")
+    field(VAL, "0")
+}
+
+# HTTP Configuration PVs
+record(waveform, "$(P)$(R)HTTP_LOG") {
+    field(DTYP, "asynOctetWrite")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))HTTP_LOG")
+    field(FTVL, "CHAR")
+    field(NELM, "200")
+}
+
+record(longout, "$(P)$(R)HTTP_PORT") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))HTTP_PORT")
+    field(VAL, "8081")
+}
+
+# SPIDR Configuration PVs
+record(waveform, "$(P)$(R)SPIDR_NET") {
+    field(DTYP, "asynOctetWrite")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))SPIDR_NET")
+    field(FTVL, "CHAR")
+    field(NELM, "50")
+}
+
+record(waveform, "$(P)$(R)TCP_IP") {
+    field(DTYP, "asynOctetWrite")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))TCP_IP")
+    field(FTVL, "CHAR")
+    field(NELM, "50")
+}
+
+record(longout, "$(P)$(R)TCP_PORT") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))TCP_PORT")
+    field(VAL, "50000")
+}
+
+# Device Configuration PVs
+record(longout, "$(P)$(R)DEVICE_MASK") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))DEVICE_MASK")
+    field(VAL, "0")
+}
+
+# Pipeline Configuration PVs
+record(longout, "$(P)$(R)UDP_RECEIVERS") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))UDP_RECEIVERS")
+    field(VAL, "0")
+}
+
+record(longout, "$(P)$(R)FRAME_ASSEMBLERS") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))FRAME_ASSEMBLERS")
+    field(VAL, "0")
+}
+
+record(longout, "$(P)$(R)RING_BUFFER_SIZE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))RING_BUFFER_SIZE")
+    field(VAL, "0")
+}
+
+record(longout, "$(P)$(R)NETWORK_BUFFER_SIZE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))NETWORK_BUFFER_SIZE")
+    field(VAL, "0")
+}
+
+record(longout, "$(P)$(R)FILE_WRITERS") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))FILE_WRITERS")
+    field(VAL, "0")
+}
+
+record(longout, "$(P)$(R)CORRECTION_HANDLERS") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CORRECTION_HANDLERS")
+    field(VAL, "0")
+}
+
+record(longout, "$(P)$(R)PROCESSING_HANDLERS") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))PROCESSING_HANDLERS")
+    field(VAL, "0")
+}
+
+# Resource Pool Configuration PVs
+record(longout, "$(P)$(R)RESOURCE_POOL_SIZE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESOURCE_POOL_SIZE")
+    field(VAL, "524288")
+}
+
+record(longout, "$(P)$(R)IMAGE_POOL_SIZE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))IMAGE_POOL_SIZE")
+    field(VAL, "0")
+}
+
+record(longout, "$(P)$(R)INTEGRATION_POOL_SIZE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))INTEGRATION_POOL_SIZE")
+    field(VAL, "0")
+}
+
+# Debug and Experimental Configuration PVs
+record(waveform, "$(P)$(R)TCP_DEBUG") {
+    field(DTYP, "asynOctetWrite")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))TCP_DEBUG")
+    field(FTVL, "CHAR")
+    field(NELM, "200")
+}
+
+record(bo, "$(P)$(R)RELEASE_RESOURCES") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))RELEASE_RESOURCES")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
+record(bo, "$(P)$(R)EXPERIMENTAL") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))EXPERIMENTAL")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
+# JAR_FILE configuration with separate name and path
+record(waveform, "$(P)$(R)JarFileName") {
+    field(DTYP, "asynOctetWrite")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))JarFileName")
+    field(FTVL, "CHAR")
+    field(NELM, "50")
+}
+
+record(waveform, "$(P)$(R)JarFile_RBV") {
+    field(DTYP, "asynOctetRead")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))JarFile_RBV")
+    field(FTVL, "CHAR")
+    field(NELM, "150")
+    field(SCAN, "1 second")
+}
+
+record(waveform, "$(P)$(R)JarFilePath") {
+    field(DTYP, "asynOctetWrite")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))JarFilePath")
+    field(FTVL, "CHAR")
+    field(NELM, "100")
+}
+
+# Status PVs
+record(bi, "$(P)$(R)STATUS") {
+    field(DTYP, "asynInt32")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))STATUS")
+    field(ZNAM, "Stopped")
+    field(ONAM, "Running")
+    field(SCAN, "1 second")
+}
+
+record(waveform, "$(P)$(R)PROCESS_ID") {
+    field(DTYP, "asynOctetRead")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))PROCESS_ID")
+    field(FTVL, "CHAR")
+    field(NELM, "50")
+    field(SCAN, "1 second")
+}
+
+record(waveform, "$(P)$(R)COMMAND_LINE") {
+    field(DTYP, "asynOctetRead")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))COMMAND_LINE")
+    field(FTVL, "CHAR")
+    field(NELM, "1000")
+    field(SCAN, "5 second")
+}
+
+record(waveform, "$(P)$(R)ERROR_MSG") {
+    field(DTYP, "asynOctetWrite")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ERROR_MSG")
+    field(FTVL, "CHAR")
+    field(NELM, "200")
+    field(SCAN, "1 second")
+}
