@@ -10,7 +10,10 @@ dbLoadDatabase "../../dbd/tpx3serval.dbd"
 tpx3serval_registerRecordDeviceDriver(pdbbase) 
 
 ## Load record instances
-#dbLoadRecords("../../db/tpx3serval.db","user=kg1")
+dbLoadRecords("../../db/tpx3serval.db","P=TPX3-TEST:,R=Serval:,PORT=TPX3_PORT,ADDR=0,TIMEOUT=1.0")
+
+## Configure the TPX3 serval driver
+tpx3servalConfigure("TPX3_PORT", 1)
 
 iocInit()
 
