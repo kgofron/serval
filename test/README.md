@@ -7,10 +7,65 @@ This folder contains testing and validation scripts for the TPX3 Serval IOC.
 ### **Build Testing**
 - **`build_test.sh`** - Automated build testing script for the IOC
 
+### **Functionality Testing**
+- **`test_enable_functionality.sh`** - Test script for enable/disable functionality
+
 ## 🧪 **Build Testing**
 
 ### **build_test.sh**
 A simple shell script that automates the build process and verifies the build was successful.
+
+## 🧪 **Functionality Testing**
+
+### **test_enable_functionality.sh**
+A comprehensive test script that demonstrates and validates the enable/disable functionality for command options.
+
+#### **What It Tests**
+1. **Default Configuration** - Verifies which options are enabled by default
+2. **Enable/Disable Controls** - Tests all 15 _ENABLE PVs
+3. **Command Line Generation** - Shows how options appear/disappear from command
+4. **Real-time Updates** - Demonstrates immediate effect of changes
+5. **Reset Functionality** - Shows how to return to default settings
+
+#### **Usage**
+```bash
+cd test
+./test_enable_functionality.sh
+```
+
+#### **Test Scenarios**
+- **Test 1**: Default configuration (HTTP_PORT and RESOURCE_POOL_SIZE enabled)
+- **Test 2**: Enable HTTP_LOG option
+- **Test 3**: Disable HTTP_PORT option
+- **Test 4**: Enable multiple pipeline options
+- **Test 5**: Enable TCP_DEBUG option
+- **Test 6**: Disable JAR_FILE option
+- **Test 7**: Test SPIDR configuration options
+- **Test 8**: Test resource pool options
+- **Test 9**: Test device and processing options
+- **Test 10**: Test buffer and handler options
+
+#### **Quick Test Commands**
+The script provides ready-to-use commands for testing:
+```bash
+# Check default command
+caget TPX3:COMMAND_LINE
+
+# Enable HTTP logging
+caput TPX3:HTTP_LOG_ENABLE 1
+caput TPX3:HTTP_LOG "/tmp/serval.log"
+
+# Disable HTTP port
+caput TPX3:HTTP_PORT_ENABLE 0
+
+# Enable pipeline options
+caput TPX3:UDP_RECEIVERS_ENABLE 1
+caput TPX3:UDP_RECEIVERS 4
+
+# Reset to defaults
+caput TPX3:HTTP_PORT_ENABLE 1
+caput TPX3:HTTP_LOG_ENABLE 0
+```
 
 #### **Usage**
 ```bash
@@ -75,6 +130,12 @@ ls -la bin/linux-x86_64/
 - ✅ **Clean completed successfully** - Previous build artifacts removed
 - ✅ **Build completed successfully** - IOC binary created without errors
 - ✅ **Binary exists** - `tpx3serval` executable in `bin/linux-x86_64/`
+
+### **Functionality Test Success Indicators**
+- ✅ **All _ENABLE PVs accessible** - Can read/write all enable flags
+- ✅ **Command line updates** - COMMAND_LINE PV reflects enable/disable changes
+- ✅ **Real-time response** - Changes take effect immediately
+- ✅ **Default behavior correct** - Only default options appear in initial command
 
 ### **Failure Indicators**
 - ❌ **Clean failed** - Permission or file system issues
@@ -158,7 +219,9 @@ These test scripts can be integrated into:
 - **[Build Verification](../docs/BUILD_SUCCESS.md)** - Detailed build testing results
 - **[Configuration](../docs/CONFIGURATION.md)** - Build configuration options
 - **[Usage Examples](../docs/EXAMPLE_USAGE.md)** - Testing scenarios
+- **[Enable Functionality](../docs/ENABLE_FUNCTIONALITY_IMPLEMENTATION.md)** - Complete enable/disable functionality documentation
 
 ---
 
 **Note**: Always run tests in a clean environment to ensure reliable results. The build test script is designed to be simple and reliable for daily development use.
+

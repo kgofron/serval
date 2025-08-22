@@ -7,6 +7,7 @@ Welcome to the TPX3 Serval IOC documentation. This folder contains comprehensive
 ### **Core Documentation**
 - **[README.md](../README.md)** - Main project overview and quick start guide
 - **[Phoebus Screens](../tpx3servalApp/op/bob/README.md)** - Complete guide to the Phoebus graphical interface
+- **[ENABLE_FUNCTIONALITY_IMPLEMENTATION.md](ENABLE_FUNCTIONALITY_IMPLEMENTATION.md)** - Enable/Disable functionality for command options
 
 ### **Configuration & Usage**
 - **[CONFIGURATION.md](CONFIGURATION.md)** - Detailed configuration options and parameters
@@ -90,6 +91,7 @@ caget TPX3-TEST:Serval:STATUS     # Check status
 
 ### **Complete Serval Support**
 - **25+ command-line options** available as EPICS PVs
+- **Enable/Disable controls** for each command option via _ENABLE PVs
 - **Real-time monitoring** of process status and command generation
 - **Autotuning support** with proper handling of 0 values
 - **Professional Phoebus interface** with logical organization
@@ -110,23 +112,29 @@ caget TPX3-TEST:Serval:STATUS     # Check status
 
 ### **HTTP Configuration**
 - HTTP port, HTTP log file path
+- **Enable/Disable controls** for each option
 
 ### **SPIDR Configuration**
 - SPIDR subnet, TCP IP, TCP port
+- **Enable/Disable controls** for each option
 
 ### **Pipeline Configuration**
 - UDP receivers, frame assemblers, ring buffer size
 - Network buffer size, file writers, correction handlers
 - Processing handlers, device mask
+- **Enable/Disable controls** for each option
 
 ### **Resource Pools**
 - Resource pool size, image pool size, integration pool size
+- **Enable/Disable controls** for each option
 
 ### **Advanced Options**
 - TCP debug log, release resources, experimental features
+- **Enable/Disable controls** for TCP debug option
 
 ### **JAR File Configuration**
 - Filename, path, and full path readback
+- **Enable/Disable control** for JAR file option
 
 ## 🆘 **Getting Help**
 
@@ -162,6 +170,7 @@ caget TPX3-TEST:Serval:STATUS     # Check status
 - ✅ **Technical Details** - Comprehensive configuration information
 - ✅ **Build Verification** - Confirmed working implementation
 - ✅ **Phoebus Integration** - Full screen documentation
+- ✅ **Enable/Disable Functionality** - Complete documentation of new feature
 
 ---
 
