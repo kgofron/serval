@@ -14,10 +14,26 @@ record(waveform, "$(P)$(R)HTTP_LOG") {
     field(NELM, "200")
 }
 
+record(bo, "$(P)$(R)HTTP_LOG_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))HTTP_LOG_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
 record(longout, "$(P)$(R)HTTP_PORT") {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))HTTP_PORT")
     field(VAL, "8081")
+}
+
+record(bo, "$(P)$(R)HTTP_PORT_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))HTTP_PORT_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "1")
 }
 
 # SPIDR Configuration PVs
@@ -28,11 +44,27 @@ record(waveform, "$(P)$(R)SPIDR_NET") {
     field(NELM, "50")
 }
 
+record(bo, "$(P)$(R)SPIDR_NET_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))SPIDR_NET_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
 record(waveform, "$(P)$(R)TCP_IP") {
     field(DTYP, "asynOctetWrite")
     field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))TCP_IP")
     field(FTVL, "CHAR")
     field(NELM, "50")
+}
+
+record(bo, "$(P)$(R)TCP_IP_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))TCP_IP_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
 }
 
 record(longout, "$(P)$(R)TCP_PORT") {
@@ -41,10 +73,26 @@ record(longout, "$(P)$(R)TCP_PORT") {
     field(VAL, "50000")
 }
 
+record(bo, "$(P)$(R)TCP_PORT_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))TCP_PORT_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "1")
+}
+
 # Device Configuration PVs
 record(longout, "$(P)$(R)DEVICE_MASK") {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))DEVICE_MASK")
+    field(VAL, "0")
+}
+
+record(bo, "$(P)$(R)DEVICE_MASK_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))DEVICE_MASK_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
     field(VAL, "0")
 }
 
@@ -55,9 +103,25 @@ record(longout, "$(P)$(R)UDP_RECEIVERS") {
     field(VAL, "0")
 }
 
+record(bo, "$(P)$(R)UDP_RECEIVERS_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))UDP_RECEIVERS_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
 record(longout, "$(P)$(R)FRAME_ASSEMBLERS") {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))FRAME_ASSEMBLERS")
+    field(VAL, "0")
+}
+
+record(bo, "$(P)$(R)FRAME_ASSEMBLERS_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))FRAME_ASSEMBLERS_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
     field(VAL, "0")
 }
 
@@ -67,9 +131,25 @@ record(longout, "$(P)$(R)RING_BUFFER_SIZE") {
     field(VAL, "0")
 }
 
+record(bo, "$(P)$(R)RING_BUFFER_SIZE_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))RING_BUFFER_SIZE_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
 record(longout, "$(P)$(R)NETWORK_BUFFER_SIZE") {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))NETWORK_BUFFER_SIZE")
+    field(VAL, "0")
+}
+
+record(bo, "$(P)$(R)NETWORK_BUFFER_SIZE_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))NETWORK_BUFFER_SIZE_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
     field(VAL, "0")
 }
 
@@ -79,15 +159,39 @@ record(longout, "$(P)$(R)FILE_WRITERS") {
     field(VAL, "0")
 }
 
+record(bo, "$(P)$(R)FILE_WRITERS_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))FILE_WRITERS_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
 record(longout, "$(P)$(R)CORRECTION_HANDLERS") {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CORRECTION_HANDLERS")
     field(VAL, "0")
 }
 
+record(bo, "$(P)$(R)CORRECTION_HANDLERS_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CORRECTION_HANDLERS_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
 record(longout, "$(P)$(R)PROCESSING_HANDLERS") {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))PROCESSING_HANDLERS")
+    field(VAL, "0")
+}
+
+record(bo, "$(P)$(R)PROCESSING_HANDLERS_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))PROCESSING_HANDLERS_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
     field(VAL, "0")
 }
 
@@ -98,9 +202,25 @@ record(longout, "$(P)$(R)RESOURCE_POOL_SIZE") {
     field(VAL, "524288")
 }
 
+record(bo, "$(P)$(R)RESOURCE_POOL_SIZE_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESOURCE_POOL_SIZE_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "1")
+}
+
 record(longout, "$(P)$(R)IMAGE_POOL_SIZE") {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))IMAGE_POOL_SIZE")
+    field(VAL, "0")
+}
+
+record(bo, "$(P)$(R)IMAGE_POOL_SIZE_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))IMAGE_POOL_SIZE_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
     field(VAL, "0")
 }
 
@@ -110,12 +230,28 @@ record(longout, "$(P)$(R)INTEGRATION_POOL_SIZE") {
     field(VAL, "0")
 }
 
+record(bo, "$(P)$(R)INTEGRATION_POOL_SIZE_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))INTEGRATION_POOL_SIZE_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
+}
+
 # Debug and Experimental Configuration PVs
 record(waveform, "$(P)$(R)TCP_DEBUG") {
     field(DTYP, "asynOctetWrite")
     field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))TCP_DEBUG")
     field(FTVL, "CHAR")
     field(NELM, "200")
+}
+
+record(bo, "$(P)$(R)TCP_DEBUG_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))TCP_DEBUG_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "0")
 }
 
 record(bo, "$(P)$(R)RELEASE_RESOURCES") {
@@ -155,6 +291,14 @@ record(waveform, "$(P)$(R)JarFilePath") {
     field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))JarFilePath")
     field(FTVL, "CHAR")
     field(NELM, "100")
+}
+
+record(bo, "$(P)$(R)JAR_FILE_ENABLE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))JAR_FILE_ENABLE")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(VAL, "1")
 }
 
 # Status PVs
