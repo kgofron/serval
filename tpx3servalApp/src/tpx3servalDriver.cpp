@@ -138,6 +138,8 @@ tpx3servalDriver::tpx3servalDriver(const char *portName, int maxAddr)
     setStringParam(processIdIndex_, "0");
     setStringParam(commandLineIndex_, "");
     setStringParam(errorMsgIndex_, "IOC initialized successfully");
+    setStringParam(jarFileNameIndex_, jarFileName_.c_str());
+    setStringParam(jarFilePathIndex_, jarFilePath_.c_str());
     
     // Update file RBV parameter with initial combined path
     updateFileRbvs();
@@ -230,70 +232,103 @@ asynStatus tpx3servalDriver::writeInt32(asynUser *pasynUser, epicsInt32 value)
         }
     } else if (function == httpPortIndex_) {
         httpPort_ = value;
+        setStringParam(errorMsgIndex_, "HTTP port updated successfully");
     } else if (function == httpPortEnableIndex_) {
         httpPortEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "HTTP port enabled" : "HTTP port disabled");
     } else if (function == tcpPortIndex_) {
         tcpPort_ = value;
+        setStringParam(errorMsgIndex_, "TCP port updated successfully");
     } else if (function == tcpPortEnableIndex_) {
         tcpPortEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "TCP port enabled" : "TCP port disabled");
     } else if (function == deviceMaskIndex_) {
         deviceMask_ = value;
+        setStringParam(errorMsgIndex_, "Device mask updated successfully");
     } else if (function == deviceMaskEnableIndex_) {
         deviceMaskEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Device mask enabled" : "Device mask disabled");
     } else if (function == udpReceiversIndex_) {
         udpReceivers_ = value;
+        setStringParam(errorMsgIndex_, "UDP receivers updated successfully");
     } else if (function == udpReceiversEnableIndex_) {
         udpReceiversEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "UDP receivers enabled" : "UDP receivers disabled");
     } else if (function == frameAssemblersIndex_) {
         frameAssemblers_ = value;
+        setStringParam(errorMsgIndex_, "Frame assemblers updated successfully");
     } else if (function == frameAssemblersEnableIndex_) {
         frameAssemblersEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Frame assemblers enabled" : "Frame assemblers disabled");
     } else if (function == ringBufferSizeIndex_) {
         ringBufferSize_ = value;
+        setStringParam(errorMsgIndex_, "Ring buffer size updated successfully");
     } else if (function == ringBufferSizeEnableIndex_) {
         ringBufferSizeEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Ring buffer size enabled" : "Ring buffer size disabled");
     } else if (function == networkBufferSizeIndex_) {
         networkBufferSize_ = value;
+        setStringParam(errorMsgIndex_, "Network buffer size updated successfully");
     } else if (function == networkBufferSizeEnableIndex_) {
         networkBufferSizeEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Network buffer size enabled" : "Network buffer size disabled");
     } else if (function == fileWritersIndex_) {
         fileWriters_ = value;
+        setStringParam(errorMsgIndex_, "File writers updated successfully");
     } else if (function == fileWritersEnableIndex_) {
         fileWritersEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "File writers enabled" : "File writers disabled");
     } else if (function == correctionHandlersIndex_) {
         correctionHandlers_ = value;
+        setStringParam(errorMsgIndex_, "Correction handlers updated successfully");
     } else if (function == correctionHandlersEnableIndex_) {
         correctionHandlersEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Correction handlers enabled" : "Correction handlers disabled");
     } else if (function == processingHandlersIndex_) {
         processingHandlers_ = value;
+        setStringParam(errorMsgIndex_, "Processing handlers updated successfully");
     } else if (function == processingHandlersEnableIndex_) {
         processingHandlersEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Processing handlers enabled" : "Processing handlers disabled");
     } else if (function == resourcePoolSizeIndex_) {
         resourcePoolSize_ = value;
+        setStringParam(errorMsgIndex_, "Resource pool size updated successfully");
     } else if (function == resourcePoolSizeEnableIndex_) {
         resourcePoolSizeEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Resource pool size enabled" : "Resource pool size disabled");
     } else if (function == imagePoolSizeIndex_) {
         imagePoolSize_ = value;
+        setStringParam(errorMsgIndex_, "Image pool size updated successfully");
     } else if (function == imagePoolSizeEnableIndex_) {
         imagePoolSizeEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Image pool size enabled" : "Image pool size disabled");
     } else if (function == integrationPoolSizeIndex_) {
         integrationPoolSize_ = value;
+        setStringParam(errorMsgIndex_, "Integration pool size updated successfully");
     } else if (function == integrationPoolSizeEnableIndex_) {
         integrationPoolSizeEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Integration pool size enabled" : "Integration pool size disabled");
     } else if (function == releaseResourcesIndex_) {
         releaseResources_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Release resources enabled" : "Release resources disabled");
     } else if (function == experimentalIndex_) {
         experimental_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "Experimental mode enabled" : "Experimental mode disabled");
     } else if (function == httpLogEnableIndex_) {
         httpLogEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "HTTP logging enabled" : "HTTP logging disabled");
     } else if (function == spidrNetEnableIndex_) {
         spidrNetEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "SPIDR net enabled" : "SPIDR net disabled");
     } else if (function == tcpIpEnableIndex_) {
         tcpIpEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "TCP IP enabled" : "TCP IP disabled");
     } else if (function == tcpDebugEnableIndex_) {
         tcpDebugEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "TCP debug enabled" : "TCP debug disabled");
     } else if (function == jarFileEnableIndex_) {
         jarFileEnable_ = (value != 0);
+        setStringParam(errorMsgIndex_, value ? "JAR file enabled" : "JAR file disabled");
     }
 
     callParamCallbacks();

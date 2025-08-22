@@ -327,7 +327,7 @@ record(waveform, "$(P)$(R)COMMAND_LINE") {
 }
 
 record(waveform, "$(P)$(R)ERROR_MSG") {
-    field(DTYP, "asynOctetWrite")
+    field(DTYP, "asynOctetRead")
     field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ERROR_MSG")
     field(FTVL, "CHAR")
     field(NELM, "200")
