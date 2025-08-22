@@ -29,27 +29,45 @@ tpx3servalDriver::tpx3servalDriver(const char *portName, int maxAddr)
     // Create parameters
     createParam("START", asynParamInt32, &startIndex_);
     createParam("HTTP_LOG", asynParamOctet, &httpLogIndex_);
+    createParam("HTTP_LOG_ENABLE", asynParamInt32, &httpLogEnableIndex_);
     createParam("HTTP_PORT", asynParamInt32, &httpPortIndex_);
+    createParam("HTTP_PORT_ENABLE", asynParamInt32, &httpPortEnableIndex_);
     createParam("SPIDR_NET", asynParamOctet, &spidrNetIndex_);
+    createParam("SPIDR_NET_ENABLE", asynParamInt32, &spidrNetEnableIndex_);
     createParam("TCP_IP", asynParamOctet, &tcpIpIndex_);
+    createParam("TCP_IP_ENABLE", asynParamInt32, &tcpIpEnableIndex_);
     createParam("TCP_PORT", asynParamInt32, &tcpPortIndex_);
+    createParam("TCP_PORT_ENABLE", asynParamInt32, &tcpPortEnableIndex_);
     createParam("DEVICE_MASK", asynParamInt32, &deviceMaskIndex_);
+    createParam("DEVICE_MASK_ENABLE", asynParamInt32, &deviceMaskEnableIndex_);
     createParam("UDP_RECEIVERS", asynParamInt32, &udpReceiversIndex_);
+    createParam("UDP_RECEIVERS_ENABLE", asynParamInt32, &udpReceiversEnableIndex_);
     createParam("FRAME_ASSEMBLERS", asynParamInt32, &frameAssemblersIndex_);
+    createParam("FRAME_ASSEMBLERS_ENABLE", asynParamInt32, &frameAssemblersEnableIndex_);
     createParam("RING_BUFFER_SIZE", asynParamInt32, &ringBufferSizeIndex_);
+    createParam("RING_BUFFER_SIZE_ENABLE", asynParamInt32, &ringBufferSizeEnableIndex_);
     createParam("NETWORK_BUFFER_SIZE", asynParamInt32, &networkBufferSizeIndex_);
+    createParam("NETWORK_BUFFER_SIZE_ENABLE", asynParamInt32, &networkBufferSizeEnableIndex_);
     createParam("FILE_WRITERS", asynParamInt32, &fileWritersIndex_);
+    createParam("FILE_WRITERS_ENABLE", asynParamInt32, &fileWritersEnableIndex_);
     createParam("CORRECTION_HANDLERS", asynParamInt32, &correctionHandlersIndex_);
+    createParam("CORRECTION_HANDLERS_ENABLE", asynParamInt32, &correctionHandlersEnableIndex_);
     createParam("PROCESSING_HANDLERS", asynParamInt32, &processingHandlersIndex_);
+    createParam("PROCESSING_HANDLERS_ENABLE", asynParamInt32, &processingHandlersEnableIndex_);
     createParam("RESOURCE_POOL_SIZE", asynParamInt32, &resourcePoolSizeIndex_);
+    createParam("RESOURCE_POOL_SIZE_ENABLE", asynParamInt32, &resourcePoolSizeEnableIndex_);
     createParam("IMAGE_POOL_SIZE", asynParamInt32, &imagePoolSizeIndex_);
+    createParam("IMAGE_POOL_SIZE_ENABLE", asynParamInt32, &imagePoolSizeEnableIndex_);
     createParam("INTEGRATION_POOL_SIZE", asynParamInt32, &integrationPoolSizeIndex_);
+    createParam("INTEGRATION_POOL_SIZE_ENABLE", asynParamInt32, &integrationPoolSizeEnableIndex_);
     createParam("TCP_DEBUG", asynParamOctet, &tcpDebugIndex_);
+    createParam("TCP_DEBUG_ENABLE", asynParamInt32, &tcpDebugEnableIndex_);
     createParam("RELEASE_RESOURCES", asynParamInt32, &releaseResourcesIndex_);
     createParam("EXPERIMENTAL", asynParamInt32, &experimentalIndex_);
     createParam("JarFileName", asynParamOctet, &jarFileNameIndex_);
     createParam("JarFilePath", asynParamOctet, &jarFilePathIndex_);
     createParam("JarFile_RBV", asynParamOctet, &jarFileRbvIndex_);
+    createParam("JAR_FILE_ENABLE", asynParamInt32, &jarFileEnableIndex_);
     createParam("STATUS", asynParamInt32, &statusIndex_);
     createParam("PROCESS_ID", asynParamOctet, &processIdIndex_);
     createParam("COMMAND_LINE", asynParamOctet, &commandLineIndex_);
@@ -57,30 +75,66 @@ tpx3servalDriver::tpx3servalDriver(const char *portName, int maxAddr)
 
     // Initialize configuration with default values
     httpLog_ = "";
+    httpLogEnable_ = false;  // Default: disabled
     httpPort_ = 8081;  // Default as specified in requirements
+    httpPortEnable_ = true;  // Default: enabled
     spidrNet_ = "autodiscover";
+    spidrNetEnable_ = false;  // Default: disabled
     tcpIp_ = "autodiscover";
+    tcpIpEnable_ = false;  // Default: disabled
     tcpPort_ = 50000;
+    tcpPortEnable_ = true;  // Default: enabled
     deviceMask_ = 0;  // unset
+    deviceMaskEnable_ = false;  // Default: disabled
     udpReceivers_ = 0;  // autotuning
+    udpReceiversEnable_ = false;  // Default: disabled
     frameAssemblers_ = 0;  // autotuning
+    frameAssemblersEnable_ = false;  // Default: disabled
     ringBufferSize_ = 0;  // autotuning
+    ringBufferSizeEnable_ = false;  // Default: disabled
     networkBufferSize_ = 0;  // autotuning
+    networkBufferSizeEnable_ = false;  // Default: disabled
     fileWriters_ = 0;  // autotuning
+    fileWritersEnable_ = false;  // Default: disabled
     correctionHandlers_ = 0;  // autotuning
+    correctionHandlersEnable_ = false;  // Default: disabled
     processingHandlers_ = 0;  // autotuning
+    processingHandlersEnable_ = false;  // Default: disabled
     resourcePoolSize_ = 524288;  // Default as specified in requirements
+    resourcePoolSizeEnable_ = true;  // Default: enabled
     imagePoolSize_ = 0;  // autotuning
+    imagePoolSizeEnable_ = false;  // Default: disabled
     integrationPoolSize_ = 0;  // autotuning
+    integrationPoolSizeEnable_ = false;  // Default: disabled
     tcpDebug_ = "";
+    tcpDebugEnable_ = false;  // Default: disabled
     releaseResources_ = false;
     experimental_ = false;
     jarFileName_ = "serval-4.1.1-rc1.jar";
     jarFilePath_ = "../../ASI";
+    jarFileEnable_ = true;  // Default: enabled
 
     // Set initial values
     setIntegerParam(statusIndex_, 0);
     setIntegerParam(startIndex_, 0);
+    setIntegerParam(httpLogEnableIndex_, httpLogEnable_ ? 1 : 0);
+    setIntegerParam(httpPortEnableIndex_, httpPortEnable_ ? 1 : 0);
+    setIntegerParam(spidrNetEnableIndex_, spidrNetEnable_ ? 1 : 0);
+    setIntegerParam(tcpIpEnableIndex_, tcpIpEnable_ ? 1 : 0);
+    setIntegerParam(tcpPortEnableIndex_, tcpPortEnable_ ? 1 : 0);
+    setIntegerParam(deviceMaskEnableIndex_, deviceMaskEnable_ ? 1 : 0);
+    setIntegerParam(udpReceiversEnableIndex_, udpReceiversEnable_ ? 1 : 0);
+    setIntegerParam(frameAssemblersEnableIndex_, frameAssemblersEnable_ ? 1 : 0);
+    setIntegerParam(ringBufferSizeEnableIndex_, ringBufferSizeEnable_ ? 1 : 0);
+    setIntegerParam(networkBufferSizeEnableIndex_, networkBufferSizeEnable_ ? 1 : 0);
+    setIntegerParam(fileWritersEnableIndex_, fileWritersEnable_ ? 1 : 0);
+    setIntegerParam(correctionHandlersEnableIndex_, correctionHandlersEnable_ ? 1 : 0);
+    setIntegerParam(processingHandlersEnableIndex_, processingHandlersEnable_ ? 1 : 0);
+    setIntegerParam(resourcePoolSizeEnableIndex_, resourcePoolSizeEnable_ ? 1 : 0);
+    setIntegerParam(imagePoolSizeEnableIndex_, imagePoolSizeEnable_ ? 1 : 0);
+    setIntegerParam(integrationPoolSizeEnableIndex_, integrationPoolSizeEnable_ ? 1 : 0);
+    setIntegerParam(tcpDebugEnableIndex_, tcpDebugEnable_ ? 1 : 0);
+    setIntegerParam(jarFileEnableIndex_, jarFileEnable_ ? 1 : 0);
     setStringParam(processIdIndex_, "0");
     setStringParam(commandLineIndex_, "");
     setStringParam(errorMsgIndex_, "IOC initialized successfully");
@@ -176,34 +230,70 @@ asynStatus tpx3servalDriver::writeInt32(asynUser *pasynUser, epicsInt32 value)
         }
     } else if (function == httpPortIndex_) {
         httpPort_ = value;
+    } else if (function == httpPortEnableIndex_) {
+        httpPortEnable_ = (value != 0);
     } else if (function == tcpPortIndex_) {
         tcpPort_ = value;
+    } else if (function == tcpPortEnableIndex_) {
+        tcpPortEnable_ = (value != 0);
     } else if (function == deviceMaskIndex_) {
         deviceMask_ = value;
+    } else if (function == deviceMaskEnableIndex_) {
+        deviceMaskEnable_ = (value != 0);
     } else if (function == udpReceiversIndex_) {
         udpReceivers_ = value;
+    } else if (function == udpReceiversEnableIndex_) {
+        udpReceiversEnable_ = (value != 0);
     } else if (function == frameAssemblersIndex_) {
         frameAssemblers_ = value;
+    } else if (function == frameAssemblersEnableIndex_) {
+        frameAssemblersEnable_ = (value != 0);
     } else if (function == ringBufferSizeIndex_) {
         ringBufferSize_ = value;
+    } else if (function == ringBufferSizeEnableIndex_) {
+        ringBufferSizeEnable_ = (value != 0);
     } else if (function == networkBufferSizeIndex_) {
         networkBufferSize_ = value;
+    } else if (function == networkBufferSizeEnableIndex_) {
+        networkBufferSizeEnable_ = (value != 0);
     } else if (function == fileWritersIndex_) {
         fileWriters_ = value;
+    } else if (function == fileWritersEnableIndex_) {
+        fileWritersEnable_ = (value != 0);
     } else if (function == correctionHandlersIndex_) {
         correctionHandlers_ = value;
+    } else if (function == correctionHandlersEnableIndex_) {
+        correctionHandlersEnable_ = (value != 0);
     } else if (function == processingHandlersIndex_) {
         processingHandlers_ = value;
+    } else if (function == processingHandlersEnableIndex_) {
+        processingHandlersEnable_ = (value != 0);
     } else if (function == resourcePoolSizeIndex_) {
         resourcePoolSize_ = value;
+    } else if (function == resourcePoolSizeEnableIndex_) {
+        resourcePoolSizeEnable_ = (value != 0);
     } else if (function == imagePoolSizeIndex_) {
         imagePoolSize_ = value;
+    } else if (function == imagePoolSizeEnableIndex_) {
+        imagePoolSizeEnable_ = (value != 0);
     } else if (function == integrationPoolSizeIndex_) {
         integrationPoolSize_ = value;
+    } else if (function == integrationPoolSizeEnableIndex_) {
+        integrationPoolSizeEnable_ = (value != 0);
     } else if (function == releaseResourcesIndex_) {
         releaseResources_ = (value != 0);
     } else if (function == experimentalIndex_) {
         experimental_ = (value != 0);
+    } else if (function == httpLogEnableIndex_) {
+        httpLogEnable_ = (value != 0);
+    } else if (function == spidrNetEnableIndex_) {
+        spidrNetEnable_ = (value != 0);
+    } else if (function == tcpIpEnableIndex_) {
+        tcpIpEnable_ = (value != 0);
+    } else if (function == tcpDebugEnableIndex_) {
+        tcpDebugEnable_ = (value != 0);
+    } else if (function == jarFileEnableIndex_) {
+        jarFileEnable_ = (value != 0);
     }
 
     callParamCallbacks();
@@ -268,145 +358,167 @@ void tpx3servalDriver::buildCommandString(char *command, size_t maxLen)
         return;
     }
 
-    // Add jar file path
-    std::string fullJarPath = jarFilePath_;
-    if (!fullJarPath.empty() && fullJarPath.back() != '/' && fullJarPath.back() != '\\') {
-        fullJarPath += "/";
-    }
-    fullJarPath += jarFileName_;
-    
-    int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " %s", fullJarPath.c_str());
-    if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
-        len += static_cast<size_t>(newLen);
-    }
-
-    // Add HTTP port (always included as per requirements)
-    newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --httpPort=%d", httpPort_);
-    if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
-        len += static_cast<size_t>(newLen);
-    }
-
-    // Add resource pool size (always included as per requirements)
-    newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --resourcePoolSize=%d", resourcePoolSize_);
-    if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
-        len += static_cast<size_t>(newLen);
-    }
-
-    // Add optional parameters if they are set
-    if (!httpLog_.empty()) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --httpLog=%s", httpLog_.c_str());
+    // Add jar file path if enabled
+    if (jarFileEnable_) {
+        std::string fullJarPath = jarFilePath_;
+        if (!fullJarPath.empty() && fullJarPath.back() != '/' && fullJarPath.back() != '\\') {
+            fullJarPath += "/";
+        }
+        fullJarPath += jarFileName_;
+        
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " %s", fullJarPath.c_str());
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (spidrNet_ != "autodiscover") {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --spidrNet=%s", spidrNet_.c_str());
+    // Add HTTP port if enabled
+    if (httpPortEnable_) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --httpPort=%d", httpPort_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (tcpIp_ != "autodiscover") {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --tcpIp=%s", tcpIp_.c_str());
+    // Add resource pool size if enabled
+    if (resourcePoolSizeEnable_) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --resourcePoolSize=%d", resourcePoolSize_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (tcpPort_ != 50000) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --tcpPort=%d", tcpPort_);
+    // Add HTTP log if enabled and not empty
+    if (httpLogEnable_ && !httpLog_.empty()) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --httpLog=%s", httpLog_.c_str());
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (deviceMask_ != 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --deviceMask=%d", deviceMask_);
+    // Add SPIDR net if enabled and not autodiscover
+    if (spidrNetEnable_ && spidrNet_ != "autodiscover") {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --spidrNet=%s", spidrNet_.c_str());
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (udpReceivers_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --udpReceivers=%d", udpReceivers_);
+    // Add TCP IP if enabled and not autodiscover
+    if (tcpIpEnable_ && tcpIp_ != "autodiscover") {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --tcpIp=%s", tcpIp_.c_str());
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (frameAssemblers_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --frameAssemblers=%d", frameAssemblers_);
+    // Add TCP port if enabled and not default
+    if (tcpPortEnable_ && tcpPort_ != 50000) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --tcpPort=%d", tcpPort_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (ringBufferSize_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --ringBufferSize=%d", ringBufferSize_);
+    // Add device mask if enabled and not 0
+    if (deviceMaskEnable_ && deviceMask_ != 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --deviceMask=%d", deviceMask_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (networkBufferSize_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --networkBufferSize=%d", networkBufferSize_);
+    // Add UDP receivers if enabled and greater than 0
+    if (udpReceiversEnable_ && udpReceivers_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --udpReceivers=%d", udpReceivers_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (fileWriters_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --fileWriters=%d", fileWriters_);
+    // Add frame assemblers if enabled and greater than 0
+    if (frameAssemblersEnable_ && frameAssemblers_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --frameAssemblers=%d", frameAssemblers_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (correctionHandlers_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --correctionHandlers=%d", correctionHandlers_);
+    // Add ring buffer size if enabled and greater than 0
+    if (ringBufferSizeEnable_ && ringBufferSize_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --ringBufferSize=%d", ringBufferSize_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (processingHandlers_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --processingHandlers=%d", processingHandlers_);
+    // Add network buffer size if enabled and greater than 0
+    if (networkBufferSizeEnable_ && networkBufferSize_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --networkBufferSize=%d", networkBufferSize_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (imagePoolSize_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --imagePoolSize=%d", imagePoolSize_);
+    // Add file writers if enabled and greater than 0
+    if (fileWritersEnable_ && fileWriters_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --fileWriters=%d", fileWriters_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (integrationPoolSize_ > 0) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --integrationPoolSize=%d", integrationPoolSize_);
+    // Add correction handlers if enabled and greater than 0
+    if (correctionHandlersEnable_ && correctionHandlers_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --correctionHandlers=%d", correctionHandlers_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
-    if (!tcpDebug_.empty()) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --tcpDebug=%s", tcpDebug_.c_str());
+    // Add processing handlers if enabled and greater than 0
+    if (processingHandlersEnable_ && processingHandlers_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --processingHandlers=%d", processingHandlers_);
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
+    // Add image pool size if enabled and greater than 0
+    if (imagePoolSizeEnable_ && imagePoolSize_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --imagePoolSize=%d", imagePoolSize_);
+        if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
+            len += static_cast<size_t>(newLen);
+        }
+    }
+
+    // Add integration pool size if enabled and greater than 0
+    if (integrationPoolSizeEnable_ && integrationPoolSize_ > 0) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --integrationPoolSize=%d", integrationPoolSize_);
+        if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
+            len += static_cast<size_t>(newLen);
+        }
+    }
+
+    // Add TCP debug if enabled and not empty
+    if (tcpDebugEnable_ && !tcpDebug_.empty()) {
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --tcpDebug=%s", tcpDebug_.c_str());
+        if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
+            len += static_cast<size_t>(newLen);
+        }
+    }
+
+    // Add release resources if enabled
     if (releaseResources_) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --releaseResources");
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --releaseResources");
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }
     }
 
+    // Add experimental if enabled
     if (experimental_) {
-        newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --experimental");
+        int newLen = snprintf(tempCmd + len, sizeof(tempCmd) - len, " --experimental");
         if (newLen > 0 && len + static_cast<size_t>(newLen) < sizeof(tempCmd)) {
             len += static_cast<size_t>(newLen);
         }

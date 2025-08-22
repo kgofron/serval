@@ -9,7 +9,7 @@
 
 #define MAX_COMMAND_LENGTH 2048
 #define MAX_ERROR_LENGTH 256
-#define NUM_PARAMS 50
+#define NUM_PARAMS 75
 
 class tpx3servalDriver : public asynPortDriver {
 public:
@@ -30,27 +30,45 @@ private:
     // Parameter indices
     int startIndex_;
     int httpLogIndex_;
+    int httpLogEnableIndex_;
     int httpPortIndex_;
+    int httpPortEnableIndex_;
     int spidrNetIndex_;
+    int spidrNetEnableIndex_;
     int tcpIpIndex_;
+    int tcpIpEnableIndex_;
     int tcpPortIndex_;
+    int tcpPortEnableIndex_;
     int deviceMaskIndex_;
+    int deviceMaskEnableIndex_;
     int udpReceiversIndex_;
+    int udpReceiversEnableIndex_;
     int frameAssemblersIndex_;
+    int frameAssemblersEnableIndex_;
     int ringBufferSizeIndex_;
+    int ringBufferSizeEnableIndex_;
     int networkBufferSizeIndex_;
+    int networkBufferSizeEnableIndex_;
     int fileWritersIndex_;
+    int fileWritersEnableIndex_;
     int correctionHandlersIndex_;
+    int correctionHandlersEnableIndex_;
     int processingHandlersIndex_;
+    int processingHandlersEnableIndex_;
     int resourcePoolSizeIndex_;
+    int resourcePoolSizeEnableIndex_;
     int imagePoolSizeIndex_;
+    int imagePoolSizeEnableIndex_;
     int integrationPoolSizeIndex_;
+    int integrationPoolSizeEnableIndex_;
     int tcpDebugIndex_;
+    int tcpDebugEnableIndex_;
     int releaseResourcesIndex_;
     int experimentalIndex_;
     int jarFileNameIndex_;
     int jarFilePathIndex_;
     int jarFileRbvIndex_;
+    int jarFileEnableIndex_;
     int statusIndex_;
     int processIdIndex_;
     int commandLineIndex_;
@@ -67,26 +85,44 @@ private:
 
     // Configuration
     std::string httpLog_;
+    bool httpLogEnable_;
     int httpPort_;
+    bool httpPortEnable_;
     std::string spidrNet_;
+    bool spidrNetEnable_;
     std::string tcpIp_;
+    bool tcpIpEnable_;
     int tcpPort_;
+    bool tcpPortEnable_;
     int deviceMask_;
+    bool deviceMaskEnable_;
     int udpReceivers_;
+    bool udpReceiversEnable_;
     int frameAssemblers_;
+    bool frameAssemblersEnable_;
     int ringBufferSize_;
+    bool ringBufferSizeEnable_;
     int networkBufferSize_;
+    bool networkBufferSizeEnable_;
     int fileWriters_;
+    bool fileWritersEnable_;
     int correctionHandlers_;
+    bool correctionHandlersEnable_;
     int processingHandlers_;
+    bool processingHandlersEnable_;
     int resourcePoolSize_;
+    bool resourcePoolSizeEnable_;
     int imagePoolSize_;
+    bool imagePoolSizeEnable_;
     int integrationPoolSize_;
+    bool integrationPoolSizeEnable_;
     std::string tcpDebug_;
+    bool tcpDebugEnable_;
     bool releaseResources_;
     bool experimental_;
     std::string jarFileName_;
     std::string jarFilePath_;
+    bool jarFileEnable_;
 
     // Methods
     void buildCommandString(char *command, size_t maxLen);
